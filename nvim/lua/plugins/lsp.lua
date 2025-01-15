@@ -126,6 +126,10 @@ return {
       end
       -- Setup LuaSnip
       local luasnip = require("luasnip")
+      luasnip.setup({
+        history = false,
+        region_check_events = { "CursorMoved", "CursorHold", "InsertEnter" },
+      })
       -- Setup nvim-cmp
       local cmp = require("cmp")
       -- Main cmp setup
