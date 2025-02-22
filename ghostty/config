@@ -6,6 +6,8 @@
 # mouse-hide-while-typing = true
 # background = 1C2021
 
+macos-icon = retro
+
 font-family = BerkeleyMono Nerd Font
 #font-family = Iosevka Nerd Font
 # font-family = SFMono Nerd Font 

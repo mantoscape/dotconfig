@@ -3,18 +3,28 @@ return {
   branch = "v3.x",
   dependencies = {
     "nvim-lua/plenary.nvim",
-    "nvim-tree/nvim-web-devicons",
+    "nvim-tree/nvim-web-devicons", -- not strictly required, but recommended
     "MunifTanjim/nui.nvim",
   },
   lazy = false,
   config = function()
     require("neo-tree").setup({
+      -- The following are some of the available settings
+      -- You can call `:lua require("neo-tree").paste_default_config()` to
+      -- paste in the current file the documented default config.
+
+      -- If a user has a sources list it will replace this one.
+      -- Only sources listed here will be loaded.
+      -- You can also add an external source by adding it's name to this list.
+      -- The name used here must be the same name you would use in a require() call.
       sources = {
         "filesystem",
         "buffers",
         "git_status",
         "document_symbols",
       },
+      -- If the root node is hidden, keep the indentation anyhow.
+      -- This is needed if you use expanders because they render in the indent.
       retain_hidden_root_indent = true,
       popup_border_style = "rounded",
       source_selector = {
@@ -75,6 +85,6 @@ return {
     })
     vim.keymap.set("n", "<C-n>", ":Neotree filesystem reveal left<CR>", {})
     vim.keymap.set("n", "<leader>bf", ":Neotree buffers reveal float<CR>", {})
-    -- vim.cmd.Neotree()
+    vim.cmd.Neotree()
   end,
 }
