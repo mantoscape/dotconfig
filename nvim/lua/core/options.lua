@@ -44,12 +44,6 @@ vim.opt.foldtext = ""
 vim.opt.foldlevel = 99
 vim.opt.foldnestmax = 4
 
--- Navigate vim panes better
-vim.keymap.set("n", "<c-k>", ":wincmd k<CR>")
-vim.keymap.set("n", "<c-j>", ":wincmd j<CR>")
-vim.keymap.set("n", "<c-h>", ":wincmd h<CR>")
-vim.keymap.set("n", "<c-l>", ":wincmd l<CR>")
-
 -- Highlight all matches while searching, but without keeping them  highlighted when search is finished. The option
 -- 'vim.opt.hlsearch' is enabled when starting to search and disabled when leaving.
 local incsearch_highlight_augroup = vim.api.nvim_create_augroup("incsearch_highlight", {})
@@ -63,6 +57,12 @@ vim.api.nvim_create_autocmd({ "CmdlineLeave" }, {
   pattern = "/,?",
   command = ":set nohlsearch",
 })
+
+-- Disable optional provider
+vim.g.loaded_node_provider = 0
+vim.g.loaded_perl_provider = 0
+vim.g.loaded_python3_provider = 0
+vim.g.loaded_ruby_provider = 0
 
 -- Update diagnostics symbols displayed next to line numbers
 local signs = { Error = "󰅚 ", Warn = "󰀪 ", Hint = "󰌶 ", Info = "󰋽 " }

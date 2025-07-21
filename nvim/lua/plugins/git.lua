@@ -34,6 +34,7 @@ return {
           },
         },
 
+
         -- keymaps,
         -- keymaps = {
         --   disable_defaults = false, -- Disable the default keymaps

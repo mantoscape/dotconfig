@@ -5,7 +5,6 @@ return {
   },
   lazy = false,
   config = function()
-    -- require("mason").setup()
     require("conform").setup({
       -- Set formatters to use by file type.
       -- Conform can run multiple formatters sequentially with e.g.:

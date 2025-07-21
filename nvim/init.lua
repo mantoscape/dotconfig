@@ -1,6 +1,12 @@
+-- core setup
+require("core.options")
+require("core.keymaps")
+-- require("core.autocmds")
+-- require("core.globals")
+
+-- lazy setup
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 if not vim.loop.fs_stat(lazypath) then
-  print("Plugin manager lazy (folke/lazy.nvim) not found. Installing...")
   vim.fn.system({
     "git",
     "clone",
@@ -12,5 +18,15 @@ if not vim.loop.fs_stat(lazypath) then
 end
 vim.opt.rtp:prepend(lazypath)
 
-require("config")
-require("lazy").setup("plugins")
+require("lazy").setup("plugins", {
+  rocks = {
+    enabled = false, -- disable LuaRocks
+  },
+  checker = {
+    enabled = true,
+    notify = true,
+  },
+  change_detection = {
+    notify = false,
+  },
+})
