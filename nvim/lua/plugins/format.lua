@@ -13,7 +13,7 @@ return {
       --   javascript = { { "prettierd", "prettier" } },
       -- Use the "*" filetype to run formatters on all filetypes.
       formatters_by_ft = {
-        lua = { "stylua" },
+        -- lua = { "stylua" },
         javascript = { "prettierd", "prettier" },
         typescript = { "prettierd", "prettier" },
         javascriptreact = { "prettierd", "prettier" },

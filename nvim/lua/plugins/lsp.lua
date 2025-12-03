@@ -31,7 +31,7 @@ return {
     "nvimdev/lspsaga.nvim",
     dependencies = {
       "nvim-treesitter/nvim-treesitter", -- optional
-      "nvim-tree/nvim-web-devicons", -- optional
+      "nvim-tree/nvim-web-devicons",     -- optional
     },
     lazy = false,
     config = function()
@@ -79,7 +79,15 @@ return {
     },
     lazy = false,
     config = function()
-      require("mason").setup()
+      require("mason").setup({
+        ui = {
+          icons = {
+            package_installed = "",
+            package_pending = "",
+            package_uninstalled = "",
+          },
+        },
+      })
       require("mason-lspconfig").setup({
         ensure_installed = {
           "astro",
@@ -89,6 +97,7 @@ return {
           "jsonls",
           "lua_ls",
           "rust_analyzer",
+          "codelldb",
           "taplo", -- toml
           "ts_ls", -- typescript
         },
@@ -105,7 +114,7 @@ return {
         ensure_installed = {
           "prettierd",
           "prettier",
-          "stylua",
+          -- "stylua",
         },
 
         -- if set to true this will check each tool for updates. If updates
@@ -135,13 +144,14 @@ return {
         debounce_hours = nil,
       })
 
-      local lspconfig = require("lspconfig")
+      -- local lspconfig = require("lspconfig")
+      -- local lspconfig = vim.lsp.config()
       local capabilities = require("cmp_nvim_lsp").default_capabilities()
       local servers = require("mason-lspconfig").get_installed_servers()
       for _, server_name in ipairs(servers) do
         -- setup 'lua_ls' server to include vim library
         if server_name == "lua_ls" then
-          lspconfig[server_name].setup({
+          vim.lsp.config[server_name] = {
             capabilities = capabilities,
             settings = {
               Lua = {
@@ -150,10 +160,10 @@ return {
                 },
               },
             },
-          })
-        -- setup 'rust_analyzer' server
+          }
+          -- setup 'rust_analyzer' server
         elseif server_name == "rust_analyzer" then
-          lspconfig[server_name].setup({
+          vim.lsp.config[server_name] = {
             capabilities = capabilities,
             settings = {
               ["rust-analyzer"] = {
@@ -162,13 +172,13 @@ return {
                 },
               },
             },
-          })
+          }
 
-        -- setup all other servers
+          -- setup all other servers
         else
-          lspconfig[server_name].setup({
+          vim.lsp.config[server_name] = {
             capabilities = capabilities,
-          })
+          }
         end
       end
       -- Setup LuaSnip
@@ -185,8 +195,8 @@ return {
         },
         mapping = cmp.mapping.preset.insert({
           ["<C-d>"] = cmp.mapping.scroll_docs(-4), -- FIXME not working
-          ["<C-f>"] = cmp.mapping.scroll_docs(4), -- FIXME not working
-          ["<C-Space>"] = cmp.mapping.complete(), -- FIXME not working
+          ["<C-f>"] = cmp.mapping.scroll_docs(4),  -- FIXME not working
+          ["<C-Space>"] = cmp.mapping.complete(),  -- FIXME not working
           ["<CR>"] = cmp.mapping.confirm({
             behavior = cmp.ConfirmBehavior.Replace,
             select = true,
